@@ -9,13 +9,12 @@ int main()
 	{
 		if (*p < *r)
 		{
-			printf("%6d,%6d", *p, *r);
 			r = p;
-
-			printf("\n");
 		}
 		else if (*p>*q)
+		{
 			q = p;
+		}
 		p++;
 	}
 	for (i = 0; i < N; i++)
