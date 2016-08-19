@@ -14,6 +14,7 @@ int main()
 		else if (*p>*q)
 		{
 			q = p;
+
 		}
 		p++;
 	}
