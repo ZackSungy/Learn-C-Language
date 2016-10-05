@@ -2,7 +2,7 @@
 #include<math.h>
 int main()
 {
-	double i, y, z, j;
+	double i, y, z;
 	double x = 0;
 	for (i = 0; i < 1000000; i++)
 	{
