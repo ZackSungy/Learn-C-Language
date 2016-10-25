@@ -2,21 +2,30 @@
 int main()
 {
 	char s[100];
-	int i, m, j = 0, k = 0, ave;
+	int i, m = 0, j = 0, k = 0, ave;
 	for (i = 0;; i++)
 	{
 		scanf("%c", &s[i]);
-		j++;
-		if (s[i] == ' ')
+		k++;
+		if ('a' <= s[i] && s[i] <= 'z' || 'A' <= s[i] && s[i] <= 'Z')
 		{
-			k++;
+			j++;
 		}
 		if (s[i] == '\n')
 		{
 			break;
 		}
 	}
-	ave = (j - 1 - k) / (k + 1);
+	for (i = 0; i < k; i++)
+	{
+		if (('a' <= s[i] && s[i] <= 'z' || 'A' <= s[i] && s[i] <= 'Z') && (!('a' <= s[i + 1] && s[i + 1] <= 'z' || 'A' <= s[i + 1] && s[i + 1] <= 'Z')))
+		{
+			m++;
+		}
+	}
+	printf("%d\n", j);
+	printf("%d\n", m);
+	ave = j / m;
 	printf("%d\n", ave);
 	return 0;
 }
