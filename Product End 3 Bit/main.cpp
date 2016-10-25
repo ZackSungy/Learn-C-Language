@@ -1,7 +1,7 @@
 #include<stdio.h>
 int main()
 {
-	char s[120];
+	char s[500];
 	int i, j = 0, k = 0, x = 0, y = 0, z = 0, m = 0, a, b = 1, sum = 0, product = 1;
 	for (i = 0;; i++)
 	{
