@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<string.h>
-int _link(char s[100], int a, int b)//Delete x(删除x）
+int _link(char s[100], int a, int b)//Delete x(删除x位上的数）
 {
 	int n;
 	n = strlen(s);
