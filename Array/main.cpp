@@ -27,16 +27,8 @@ void f(int n, int *A, int cur)
 int main()
 
 {
-	int t, x, i, j, s[1000];
+	int x, s[1000];
 	scanf("%d", &x);
-	for (j = 0; j < x; j++)
-	{
-		for (i = 0; i < x; i++)
-			s[i] = 1 + i;
-		t = s[0];
-		s[0] = s[j];
-		s[j] = t;
-		f(x, s, 1);
-	}
+	f(x, s, 0);
 	return 0;
 }
