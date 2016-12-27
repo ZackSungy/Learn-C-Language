@@ -1,0 +1,1 @@
+i like main(2)
