@@ -1,6 +1,6 @@
 #include<stdio.h>
 
-int A[100], T[100];
+int A[100], T[100], cnt = 0;
 void merge_sort(int *A, int x, int y, int *T)
 {
 	if (y - x > 1)
@@ -14,7 +14,10 @@ void merge_sort(int *A, int x, int y, int *T)
 			if (q >= y || (p < m&&A[p] <= A[q]))
 				T[i++] = A[p++];
 			else
+			{
 				T[i++] = A[q++];
+				cnt += m - p;
+			}
 		}
 		for (i = x; i < y; i++)
 			A[i] = T[i];
@@ -31,5 +34,6 @@ int main()
 	for (int i = 0; i < n; i++)
 		printf("%d ", A[i]);
 	printf("\n");
+	printf("%d\n", cnt);
 	return 0;
 }
