@@ -28,9 +28,8 @@ int main()
 	for (int i = 0; i < n; i++)
 		scanf("%d", &W[i]);
 	Quick_Sort_1(0, n - 1, W);
-	for (j = 0; W[j] < C&&j < n; j++);
+	for (j = 0; W[j] <= C&&j < n; j++);
 	j--;
-	Boat += n - j - 1;
 	while (i <= j)
 	{
 		if ((W[i] + W[j]) <= C)
