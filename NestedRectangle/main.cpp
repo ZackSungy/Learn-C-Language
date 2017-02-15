@@ -1,58 +1,53 @@
 #include<stdio.h>
+#include<string.h>
 
-void Quick_sort(int*A, int *B, int*C, int left, int right)
+int d[1000], n, G[100][100], Dot[1000];
+
+int dp(int i)
 {
-	if (left > right)return;
-	int i = left;
-	int j = right;
-	int key = A[i];
-	int key2 = B[i];
-	int key3 = C[i];
-	while (j > i)
+	int &ant = d[i];
+	if (ant > 0)
+		return ant;
+	ant = 1;
+	for (int j = 1; j <= n; j++)
+	if (G[i][j])
+		ant = ant > (dp(j) + 1) ? ant : (dp(j) + 1);
+	return ant;
+}
+
+void print_ans(int i)
+{
+	printf("%d", i);
+	for (int j = 1; j <= n; j++)
+	if (G[i][j] && d[i] == d[j] + 1)
 	{
-		while (j > i&&A[j] >= key)j--;
-		A[i] = A[j];
-		B[i] = B[j];
-		C[i] = C[j];
-		while (j > i&&A[i] <= key)i++;
-		A[j] = A[i];
-		B[j] = B[i];
-		C[j] = C[i];
+		print_ans(j);
+		break;
 	}
-	A[i] = key;
-	B[i] = key2;
-	C[i] = key3;
-	Quick_sort(A, B, C, left, i - 1);
-	Quick_sort(A, B, C, i + 1, right);
 }
 
 int main()
 {
-	int n, A[1000], B[1000], C[1000], max = -1;
+	memset(d, 0, sizeof(d));
+	memset(G, 0, sizeof(G));
+	int A[1000], B[1000], max, ans = 0;
 	scanf("%d", &n);
-	for (int i = 0; i < n; i++)
-		scanf("%d%d", &A[i], &B[i]);
-	Quick_sort(A, B, C, 0, n - 1);
-	for (int i = 0; i < n; i++)
-		C[i] = A[i] + B[i];
-	Quick_sort(C, A, B, 0, n - 1);
-	for (int i = 0; i < n; i++)
-		printf("%d %d\n", A[i], B[i]);
-	for (int i = 0; i < n; i++)
+	for (int i = 1; i <= n; i++)
+		scanf("%d%d", A + i, B + i);
+	for (int i = 1; i <= n; i++)
+	for (int j = 1; j <= n; j++)
+	if (A[i] > A[j] && B[i] > B[j] || A[i] > B[j] && B[i] > A[j])
+		G[i][j] = 1;
+	for (int i = 1; i <= n; i++)
+		dp(i);
+	for (int i = 1; i <= n; i++)
+	if (ans < d[i])
+		max = i;
+	for (int i = 1; i <= n; i++)
+	if (d[i] == d[max])
 	{
-		int sum = 1, a = A[0], b = B[0];
-		for (int j = 0 + i; j < n; j++)
-		{
-			if (A[j]>a && B[j]>b || A[j]>b && B[j] > a)
-			{
-				a = A[j];
-				b = B[j];
-				sum++;
-			}
-		}
-		if (sum > max)
-			max = sum;
+		print_ans(i);
+		printf("\n");
 	}
-	printf("%d\n", max);
 	return 0;
 }
