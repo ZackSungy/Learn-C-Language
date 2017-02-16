@@ -1,42 +1,44 @@
 #include<stdio.h>
+#include<string.h>
+
+int n, V[101], INF = 1000000000;
+
+void print_ans(int *d, int S)
+{
+	for (int i = 0; i <= n; i++)
+	if (S >= V[i] && d[S] == d[S - V[i]] + 1)
+	{
+		printf("%d ", V[i]);
+		print_ans(d, S - V[i]);
+		break;
+	}
+}
 
 int main()
 {
-	int n, S, V[100];
-	scanf("%d%d", &n, &S);
-	int min = 0, max = 0, i = n - 1, S1 = S;
-	for (int i = 0; i < n; i++)
-		scanf("%d", &V[i]);
-	while (S>0)
+	int S, min[10001], max[10001];
+	while (scanf("%d%d", &n, &S) != EOF)
 	{
-		if (S >= V[i])
+		memset(min, 0, sizeof(min));
+		memset(max, 0, sizeof(max));
+		for (int i = 1; i <= n; i++)
+			scanf("%d", V + i);
+		min[0] = max[0] = 0;
+		for (int i = 1; i <= S; i++)
 		{
-			min += S / V[i];
-			S = S%V[i];
-			i--;
+			min[i] = INF; max[i] = -INF;
 		}
-		else
+		for (int i = 1; i <= S; i++)
+		for (int j = 1; j <= n; j++)
+		if (i >= V[j])
 		{
-			S += V[i + 1];
-			min--;
+			min[i] = min[i] < min[i - V[j]] + 1 ? min[i] : min[i - V[j]] + 1;
+			max[i] = max[i] > max[i - V[j]] + 1 ? max[i] : max[i - V[j]] + 1;
 		}
+		printf("%d %d\n", min[S], max[S]);
+		print_ans(min, S);
+		printf("\n");
+		print_ans(max, S);
 	}
-	i = 0;
-	while (S1 > 0)
-	{
-		if (S1 >= V[i])
-		{
-			max += S1 / V[i];
-			S1 = S1%V[i];
-			i++;
-		}
-		else
-		{
-			S1 += V[i - 1];
-			max--;
-		}
-	}
-	printf("%d\n", min);
-	printf("%d\n", max);
 	return 0;
 }
