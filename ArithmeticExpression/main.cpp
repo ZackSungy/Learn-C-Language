@@ -48,28 +48,45 @@ int main()
 
 		if (a.size() >= 2)
 		{
-			if ((s[i] == '+' || s[i] == '-') && (a[a.size() - 2] == '*' || a[a.size() - 2] == '/' || a[a.size() - 2] == '+' || a[a.size() - 2] == '-'))
+			for (int i = 0; i<a.size() - 1; i++)
 			{
-				bra.push_back(a[a.size() - 2]);
-				a.erase(a.end() - 2);
-			}
-			else if (a[0] == '*' || a[0] == '/')
-			{
-				if (s[i] == '*' || s[i] == '/')
+				int k;
+				if (a[i] == '*' || a[i] == '/')
 				{
-					for (int i = 0; i<a.size(); i++)
-					if (a[i] == '(')
+					k = 1;
+					for (int j = i + 1; j<a.size(); j++)
+					if (a[j] == '(')
 					{
 						k = 0;
 						break;
 					}
 					if (k)
-					while (a.size() >= 2)
 					{
-						bra.push_back(a[a.size() - 2]);
-						a.erase(a.end() - 2);
+						bra.push_back(a[i]);
+						a.erase(a.begin() + i);
+						i--;
 					}
 				}
+
+				else if (a[i] == '+' || a[i] == '-')
+				{
+					k = 1;
+					for (int j = i + 1; j<a.size(); j++)
+					if (a[j] == '(')
+					{
+						k = 0;
+						break;
+					}
+					if (k&&a[i + 1] == '+' || a[i + 1] == '-')
+					{
+						bra.push_back(a[i]);
+						a.erase(a.begin() + i);
+						i--;
+					}
+				}
+
+
+
 			}
 		}
 	}
@@ -79,7 +96,6 @@ int main()
 		bra.push_back(a[a.size() - 1]);
 		a.pop_back();
 	}
-
 
 	for (int i = 0; i<bra.size(); i++)
 	{
@@ -109,7 +125,7 @@ int main()
 			}
 			else if (bra[i] == '/')
 			{
-				c = num[num.size() - 1] / num[num.size() - 2];
+				c = num[num.size() - 2] / num[num.size() - 1];
 				num.pop_back();
 				num.pop_back();
 				num.push_back(c);
@@ -122,6 +138,6 @@ int main()
 	}
 
 	for (int i = 0; i<num.size(); i++)
-		cout << num[i] << " ";
+		cout << num[i] << endl;
 	return 0;
 }
