@@ -76,6 +76,18 @@ void Delete()
 	cout << "\n\nÇëÊä³öÉ¾³ýÍ¼Êé±àºÅ!\n";
 	int Booknum, num = length;
 	cin >> Booknum;
+	if (length == 1 && head->bookid == Booknum)
+	{
+		head = NULL;
+		length--;
+		cout << "Í¼ÊéÉ¾³ý³É¹¦£¡\n";
+		return;
+	}
+	else if (length == 1)
+	{
+		cout << "Ã»ÓÐ¸Ã±àºÅÍ¼Êé,É¾³ýÊ§°Ü£¡\n";
+		return;
+	}
 	Book *p;
 	p = new Book;
 	p = head;
