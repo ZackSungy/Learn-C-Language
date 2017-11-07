@@ -2,7 +2,6 @@
 using std::cout;
 using std::endl;
 
-void Sign(char sign, double number1, double number2);
 
 class Operation
 {
@@ -10,9 +9,9 @@ protected:
 	double number1;
 	double number2;
 public:
-	void GetResult(char sign) {
-		Sign(sign, number1, number2);
-	}
+
+	void
+		GetResult(char sign, double number1, double number2);
 	void Input(double num1, double num2)
 	{
 		number1 = num1;
@@ -28,7 +27,7 @@ public:
 	}
 };
 
-class  Reduce:public Operation
+class  Reduce :public Operation
 {
 public:
 	void GetResult() {
@@ -53,17 +52,21 @@ public:
 	}
 };
 
-void Sign(char sign, double number1, double number2) {
-	if (!(sign == '/'&&number2 == 0))
-		switch (sign) {
-		case '+': {Add a; a.Input(number1, number2); a.GetResult(); }; break;
-		case '-': {Reduce a; a.Input(number1, number2); a.GetResult(); }; break;
-		case '*': {Ride a; a.Input(number1, number2); a.GetResult(); }; break;
-		case '/': {Excpet a; a.Input(number1, number2); a.GetResult(); }; break;
-		default:cout << "input error,please input again!" << endl;
-		}
-	else
-		cout << "Divisor is zero,please input again!" << endl;
-}
 
+class OpertationFactory // 简单工厂模式
+{
+public:
+	void GetResult(char sign, double number1, double number2) {
+		if (!(sign == '/'&&number2 == 0))
+			switch (sign) {
+			case '+': {Add a; a.Input(number1, number2); a.GetResult(); }; break;
+			case '-': {Reduce a; a.Input(number1, number2); a.GetResult(); }; break;
+			case '*': {Ride a; a.Input(number1, number2); a.GetResult(); }; break;
+			case '/': {Excpet a; a.Input(number1, number2); a.GetResult(); }; break;
+			default:cout << "input error,please input again!" << endl;
+		}
+		else
+			cout << "Divisor is zero,please input again!" << endl;
+	}
+};
 
