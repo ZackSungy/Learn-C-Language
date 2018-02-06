@@ -19,6 +19,9 @@ int main(void)
 		commission = 155.0f + .0011f * value;
 	else
 		commission = 255.0f + .0009f * value;
+
+	if (commission < 39.00f)
+		commission = 39.00f;
 	printf("Commission:$ %.2f\n",commission);
 	return 0;
 }
